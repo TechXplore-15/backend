@@ -1,0 +1,20 @@
+services:
+  back-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: back-dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+        #ports:
+        #  - "8000:8000"
+        #environment:
+        #  - DJANGO_SETTINGS_MODULE=stay_connected.settings
+    networks:
+      - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
