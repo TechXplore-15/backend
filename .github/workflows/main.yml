@@ -57,7 +57,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: env
+      name: development
       url: https://api.dev.x.devops-ninja.me
 
     env:

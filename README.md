@@ -1,3 +1,3 @@
-### TechXplore Team 15 Backend
+### TechXplore Team 15 Backend 
 
-Live URL - [Link](https://api.dev.x.devops-ninja.me)
+Live Demo - [URL](https://api.dev.x.devios-ninja.me)

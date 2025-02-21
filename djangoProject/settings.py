@@ -37,7 +37,7 @@ CORS_ALLOW_HEADERS = "*"
 CORS_ALLOW_METHODS = "*"
 
 #Allow all domains
-ALLOWED_HOSTS = [ 
+ALLOWED_HOSTS = [
         "api.dev.x.devops-ninja.me",
         "web.dev.x.devops-ninja.me",
 ]
