@@ -1,0 +1,94 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches: ["dev"]
+  pull_request:
+    branches: ["dev"]
+
+jobs:
+  build:
+    name: Build and Test Docker Images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Optional: Fix repo permissions
+      - name: Fix Repo Permissions
+        run: |
+          sudo chown -R $USER:$USER ${{ github.workspace }}
+          sudo chmod -R u+rwX ${{ github.workspace }}
+          pwd ${{ github.workspace }}
+          ls ${{ github.workspace }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Docker Images
+        run: |
+          docker compose -f ${{ github.workspace }}/compose.yml build
+
+      - name: Create Proxy Network
+        run: |
+          docker network create proxy
+
+      - name: Run Tests
+        run: |
+          docker compose up -d
+          docker compose down
+
+      - name: Cleanup Docker Resources
+        run: |
+          docker image prune -af
+          docker builder prune -af
+
+  deploy:
+    name: Deploy to Dev Server
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: env
+      url: https://api.dev.x.devops-ninja.me
+
+    env:
+      SSH_SERVER: ${{ vars.SSH_SERVER }}
+      DEPLOY_DIR: ${{ vars.DEPLOY_DIR }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ env.SSH_SERVER }}
+          username: root
+          key: ${{ env.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_DIR }}
+            pwd
+            ls
+            git pull
+            docker compose build
+            docker compose down
+            docker compose up -d
+            docker image prune -af
+            docker builder prune -af
+
+      - name: Cleanup SSH Key
+        run: |
+          rm -f ~/.ssh/id_ed25519
