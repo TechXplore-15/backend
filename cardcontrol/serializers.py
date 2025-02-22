@@ -10,7 +10,7 @@ User = get_user_model()
 
 
 class CardSerializer(serializers.ModelSerializer):
-    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Card
@@ -27,7 +27,7 @@ class CardSerializer(serializers.ModelSerializer):
 
 
 class TransactionsSerializer(serializers.ModelSerializer):
-    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Transactions
