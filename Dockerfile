@@ -8,7 +8,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Deps
-RUN pip install djangorestframework markdown django-filter gunicorn
+RUN pip install -r requirements.txt
 
 # Run manage.py on serverside
 #CMD ["python", "manage.py", "runserver"]
