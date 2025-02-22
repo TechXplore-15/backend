@@ -91,11 +91,3 @@ class CardViewset(viewsets.ModelViewSet):
         serializer = self.get_serializer(card)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class TransactionsViewset(viewsets.ModelViewSet):
-    permission_classes = [AllowAny]
-    serializer_class = TransactionsSerializer
-    queryset = Transactions.objects.all()
-
-    def get(self, request, *args, **kwargs):
-        pass
