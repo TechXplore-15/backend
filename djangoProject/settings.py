@@ -31,10 +31,6 @@ CSRF_TRUSTED_ORIGINS = [
         "https://web.dev.x.devops-ninja.me",
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = "*"
-CORS_ALLOW_METHODS = "*"
 
 #Allow all domains
 ALLOWED_HOSTS = [
