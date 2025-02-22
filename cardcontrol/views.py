@@ -13,7 +13,7 @@ class CardViewset(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         user_received = request.query_params.get("user")
-        print("user_received=", user_received)
+        # print("user_received=", user_received)
         cards = Card.objects.all().filter(user_id=user_received)
         serializer = self.get_serializer(cards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -54,19 +54,19 @@ class CardViewset(viewsets.ModelViewSet):
                 return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
         if "card_name" in request.data:
-            card.subscriber_name = request.data["card_name"]
+            card.subscriber_name = request.data["subscriber_name"]
 
         if "card_account" in request.data:
-            card.subscriber_account = request.data["card_account"]
+            card.subscriber_account = request.data["subscriber_account"]
 
         if "end_date" in request.data:
             card.end_date = request.data["end_date"]
 
         if "pay_day" in request.data:
-            card.end_date = request.data["pay_day"]
+            card.pay_day = request.data["pay_day"]
 
         if "is_subscribe" in request.data:
-            card.end_date = request.data["is_subscribe"]
+            card.is_subscribe = request.data["is_subscribe"]
 
         if "is_active" in request.data:
             card.is_active = request.data["is_active"]
