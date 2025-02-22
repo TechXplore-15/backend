@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from .models import Card
-from .serializers import CardSerializer
+from .serializers import *
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 
@@ -67,3 +67,12 @@ class CardViewset(viewsets.ModelViewSet):
         card.save()
         serializer = self.get_serializer(card)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TransactionsViewset(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = TransactionsSerializer
+    queryset = Transactions.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        pass

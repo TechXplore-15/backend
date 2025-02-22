@@ -8,6 +8,7 @@ from rest_framework import serializers
 
 User = get_user_model()
 
+
 class CardSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
@@ -22,5 +23,20 @@ class CardSerializer(serializers.ModelSerializer):
             "is_subscribe",
             "end_date",
             "is_active"
+        ]
+
+
+class TransactionsSerializer(serializers.ModelSerializer):
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = Transactions
+        fields = [
+            "id",
+            "user_id",
+            "transaction_date",
+            "debit_account",
+            "credit_account",
+            "amount",
         ]
 

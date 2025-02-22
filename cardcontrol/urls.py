@@ -21,6 +21,8 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'Card', CardViewset,  basename='CardViewset'),
+router.register(r'Transactions', TransactionsViewset,  basename='TransactionsViewset'),
+
 
 urlpatterns = [
     path('', include(router.urls)),
