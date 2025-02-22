@@ -25,7 +25,23 @@ SECRET_KEY = "django-insecure-$$*g$b!4f*p-@koc(mv@5d7p)fj57eost8gxf9y*bs6$o_^xlj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+# CORS RULES
+CSRF_TRUSTED_ORIGINS = [
+        "https://api.dev.x.devops-ninja.me",
+        "https://web.dev.x.devops-ninja.me",
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = "*"
+CORS_ALLOW_METHODS = "*"
+
+#Allow all domains
+ALLOWED_HOSTS = [
+        "127.0.0.1",
+        "api.dev.x.devops-ninja.me",
+        "web.dev.x.devops-ninja.me",
+]
 
 
 # Application definition
