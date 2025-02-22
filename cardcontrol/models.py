@@ -14,3 +14,11 @@ class Card(models.Model):
     is_subscribe = models.BooleanField(null=True, blank=True)
     is_active = models.BooleanField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('created'), null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = _('Card')
+        verbose_name_plural = _('Cards')
+
+    def __str__(self):
+        return self.subscriber_name
