@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
-from .models import *
-from .serializers import *
+from cardcontrol.models import *
+from cardcontrol.serializers import *
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 
