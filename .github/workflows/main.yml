@@ -83,6 +83,7 @@ jobs:
             pwd
             ls
             git checkout dev
+            git stash
             git pull
             docker compose build
             docker compose down
