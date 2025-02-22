@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install Deps
-RUN pip install djangorestframework markdown django-filter gunicorn
+# Install Dependencies
+RUN pip install -r requirements.txt
 
 # Run manage.py on serverside
 #CMD ["python", "manage.py", "runserver"]

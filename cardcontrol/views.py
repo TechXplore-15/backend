@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
-from .models import Card
-from .serializers import CardSerializer
+from cardcontrol.models import *
+from cardcontrol.serializers import *
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 
@@ -10,7 +10,29 @@ from django.contrib.auth.models import User
 class CardViewset(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = CardSerializer
-    queryset = Card.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        user_id_received = request.data["user"]
+        print("user_id_received= ", user_id_received)
+
+        if not user_id_received:
+            return Response(
+                {"error": "User ID is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            user = User.objects.get(id=user_id_received)
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        cards = Card.objects.filter(user_id=user_id_received)
+        serializer = self.get_serializer(cards, many=True)
+        print(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
         user_id = request.data.get("user")
@@ -48,16 +70,23 @@ class CardViewset(viewsets.ModelViewSet):
                 return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
         if "card_name" in request.data:
-            card.card_name = request.data["card_name"]
+            card.subscriber_name = request.data["card_name"]
 
         if "card_account" in request.data:
-            card.card_account = request.data["card_account"]
+            card.subscriber_account = request.data["card_account"]
 
         if "end_date" in request.data:
             card.end_date = request.data["end_date"]
+
+        if "pay_day" in request.data:
+            card.end_date = request.data["pay_day"]
+
+        if "is_subscribe" in request.data:
+            card.end_date = request.data["is_subscribe"]
 
         if "is_active" in request.data:
             card.is_active = request.data["is_active"]
         card.save()
         serializer = self.get_serializer(card)
         return Response(serializer.data, status=status.HTTP_200_OK)
+

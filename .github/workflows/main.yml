@@ -82,6 +82,7 @@ jobs:
             cd ${{ vars.DEPLOY_DIR }}
             pwd
             ls
+            git checkout dev
             git pull
             docker compose build
             docker compose down
