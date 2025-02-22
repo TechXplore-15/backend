@@ -9,6 +9,6 @@ class Card(models.Model):
     card_name = models.CharField(max_length=255, verbose_name=_('Card Name'))
     card_account = models.CharField(max_length=255, verbose_name=_('Card Number'))
     end_date = models.DateField(verbose_name=_('end_date'),null=True, blank=True)
-    # is_subscribe =kk
+    # is_subscribe =kkdd
     is_active = models.BooleanField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('created'), null=True, blank=True)
