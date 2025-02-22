@@ -56,6 +56,12 @@ class CardViewset(viewsets.ModelViewSet):
         if "end_date" in request.data:
             card.end_date = request.data["end_date"]
 
+        if "pay_day" in request.data:
+            card.end_date = request.data["pay_day"]
+
+        if "is_subscribe" in request.data:
+            card.end_date = request.data["is_subscribe"]
+
         if "is_active" in request.data:
             card.is_active = request.data["is_active"]
         card.save()
