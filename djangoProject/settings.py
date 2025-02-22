@@ -143,6 +143,3 @@ REST_FRAMEWORK = {
     ]
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://api.dev.x.devops-ninja.me",
-]
