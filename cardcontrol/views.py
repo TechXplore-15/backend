@@ -12,35 +12,21 @@ class CardViewset(viewsets.ModelViewSet):
     serializer_class = CardSerializer
 
     def list(self, request, *args, **kwargs):
-        # Fetch 'user' from the query string in a GET request
         user_id_received = request.query_params.get("user")
         # user_id_received = request.data["user"]
-        print("user_id_received=", user_id_received)
+        print("user_id_received=",  request.query_params.get("user"))
 
         if not user_id_received:
             return Response(
                 {"error": "User ID is required"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
-        try:
-            # Convert to int or handle as needed
+        else:
             user_id_int = int(user_id_received)
-            user = User.objects.get(id=user_id_int)
-        except ValueError:
-            return Response(
-                {"error": "Invalid user ID format"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        except User.DoesNotExist:
-            return Response(
-                {"error": "User not found"},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        cards = Card.objects.filter(user_id=user_id_int)
-        serializer = self.get_serializer(cards, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            cards = Card.objects.filter(user_id=user_id_int)
+            print(cards)
+            serializer = self.get_serializer(cards, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
         user_id = request.data.get("user")
