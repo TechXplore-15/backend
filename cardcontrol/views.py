@@ -14,7 +14,7 @@ class CardViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         # Fetch 'user' from the query string in a GET request
         user_id_received = request.query_params.get("user")
-        user_id_received = request.data["user"]
+        # user_id_received = request.data["user"]
         print("user_id_received=", user_id_received)
 
         if not user_id_received:
