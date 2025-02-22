@@ -25,22 +25,7 @@ SECRET_KEY = "django-insecure-$$*g$b!4f*p-@koc(mv@5d7p)fj57eost8gxf9y*bs6$o_^xlj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# CORS RULES
-CSRF_TRUSTED_ORIGINS = [
-        "https://api.dev.x.devops-ninja.me",
-        "https://web.dev.x.devops-ninja.me",
-]
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = "*"
-CORS_ALLOW_METHODS = "*"
-
-#Allow all domains
-ALLOWED_HOSTS = [
-        "api.dev.x.devops-ninja.me",
-        "web.dev.x.devops-ninja.me",
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -54,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "cardcontrol",
     'rest_framework',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -64,7 +50,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = "djangoProject.urls"
 
