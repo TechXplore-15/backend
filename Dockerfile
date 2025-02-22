@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install Deps
+# Install Dependencies
 RUN pip install -r requirements.txt
 
 # Run manage.py on serverside
