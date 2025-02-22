@@ -142,3 +142,7 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://api.dev.x.devops-ninja.me",
+]
