@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 class CardViewset(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = CardSerializer
+    queryset = Card.objects.all()
 
     def list(self, request, *args, **kwargs):
         user_received = request.query_params.get("user")
