@@ -16,10 +16,11 @@ class CardSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "user_id",
-            "card_name",
-            "card_account",
+            "subscriber_name",
+            "subscriber_account",
             "pay_day",
             "is_subscribe",
             "end_date",
             "is_active"
         ]
+

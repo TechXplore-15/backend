@@ -48,10 +48,10 @@ class CardViewset(viewsets.ModelViewSet):
                 return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
         if "card_name" in request.data:
-            card.card_name = request.data["card_name"]
+            card.subscriber_name = request.data["card_name"]
 
         if "card_account" in request.data:
-            card.card_account = request.data["card_account"]
+            card.subscriber_account = request.data["card_account"]
 
         if "end_date" in request.data:
             card.end_date = request.data["end_date"]
