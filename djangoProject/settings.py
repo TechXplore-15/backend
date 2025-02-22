@@ -28,9 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Add the trusted origin for CSRF protection
-CSRF_TRUSTED_ORIGINS = [
-    "https://api.dev.x.devops-ninja.me",
-]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
